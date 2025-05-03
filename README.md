@@ -11,7 +11,6 @@
 - **言語**: TypeScript
 - **フレームワーク**: Next.js 15 (App Router)
 - **スタイリング**: Tailwind CSS
-- **認証**: NextAuth.js
 - **フォーム**: React Hook Form
 - **バリデーション**: Zod
 - **データベース**: Supabase
@@ -44,8 +43,6 @@ pnpm install
 ```
 NEXT_PUBLIC_SUPABASE_URL="your-supabase-url"
 NEXT_PUBLIC_SUPABASE_ANON_KEY="your-supabase-anon-key"
-NEXTAUTH_SECRET="your-nextauth-secret"
-NEXTAUTH_URL="http://localhost:3000"
 ```
 
 4. 開発サーバーを起動します:
