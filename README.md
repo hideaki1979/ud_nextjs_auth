@@ -8,6 +8,13 @@
 
 ## 技術スタック
 
+![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
+![Next.js](https://img.shields.io/badge/-Next.js-000000?style=flat&logo=next.js&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/-Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
+![React Hook Form](https://img.shields.io/badge/-React_Hook_Form-EC5990?style=flat&logo=react&logoColor=white)
+![Zod](https://img.shields.io/badge/-Zod-3068B7?style=flat&logo=zod&logoColor=white)
+![Supabase](https://img.shields.io/badge/-Supabase-3ECF8E?style=flat&logo=supabase&logoColor=white)
+
 - **言語**: TypeScript
 - **フレームワーク**: Next.js 15 (App Router)
 - **スタイリング**: Tailwind CSS
