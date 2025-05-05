@@ -2,9 +2,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { signupFormSchema } from "../lib/authFormSchema"
 import { z } from "zod"
-import { supabase } from "../lib/supabaseClient"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import { useAuthStore } from "../store/authStore"
 
 export const useSignupForm = () => {
     const form = useForm({
@@ -17,41 +17,27 @@ export const useSignupForm = () => {
     })
     const router = useRouter()
     const [err, setErr] = useState<string>('')
+    const signUp = useAuthStore(state => state.signUp)
 
     const onSubmit: SubmitHandler<z.infer<typeof signupFormSchema>> = async (data) => {
         const { username, email, password } = data
 
         try {
-            const { data, error: signUpError } = await supabase.auth.signUp({
+            const { error } = await signUp(
                 email,
                 password,
-                options: { data: { username } }
-            })
-            if (signUpError) {
-                setErr(signUpError.message)
-                return
-            }
+                username
+            )
 
-            const { error: userError } = await supabase
-                .from('Users')
-                .insert([{
-                    id: data.user?.id,
-                    username,
-                    email
-                }])
-
-            if (userError) {
-                if (userError.message.includes('duplicate key value violates unique constraint')) {
-                    setErr('既にメールアドレス登録されているユーザーです。')
-                }
-                // console.error('ユーザー情報登録エラー：', userError.message)
+            if (error) {
+                setErr('既にメールアドレス登録されているユーザーです。')
                 return
             }
 
             router.push(`/auth/email-confirm`)
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error('サインアップエラー：', error)
+        } catch (err) {
+            if (err instanceof Error) {
+                console.error('サインアップエラー：', err)
 
             }
         }

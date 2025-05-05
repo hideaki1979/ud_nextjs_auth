@@ -20,7 +20,8 @@
 - **スタイリング**: Tailwind CSS
 - **フォーム**: React Hook Form
 - **バリデーション**: Zod
-- **データベース**: Supabase
+- **状態管理**: Supabase
+- **データベース**: zustand
 
 ## Getting Started
 
