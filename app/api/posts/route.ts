@@ -53,7 +53,35 @@ export async function POST(
             { status: 200 }
         )
     }
+}
 
+export async function GET(req: NextRequest) {
+    // アクセストークンからヘッダーを取得
+    const accessToken = req.headers.get('Authorization')?.replace('Bearer ', '')
+    if (!accessToken) {
+        return NextResponse.json({ error: '認証情報がありません' }, { status: 401 })
+    }
 
+    // supabaseクライアントをアクセストークン付きで生成
+    const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        { global: { headers: { Authorization: `Bearer ${accessToken}` } } }
+    )
 
+    // トークンからユーザー情報取得
+    const { data: { user }, error } = await supabase.auth.getUser()
+    if (error || !user) {
+        return NextResponse.json({ error: "ユーザー情報の取得に失敗しました" }, { status: 401 })
+    }
+
+    // ユーザーIDでPostsを取得する
+    const { data: posts, error: postsError } = await supabase
+        .from('Posts')
+        .select('*')
+        .eq('user_id', user.id)
+
+    if (postsError) return NextResponse.json({ error: "記事取得でエラーが発生しました。" }, { status: 500 })
+
+    return NextResponse.json({ posts })
 }

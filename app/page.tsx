@@ -23,7 +23,14 @@ export default function Home() {
     } else {
       router.push('/auth/login')
     }
+  }
 
+  const handleBlogList = () => {
+    if (user && isAuthenticated) {
+      router.push('/posts/list')
+    } else {
+      router.push('/auth/login')
+    }
   }
 
   if (isLoading) {
@@ -64,6 +71,13 @@ export default function Home() {
             onClick={handleBlogPost}
           >
             ブログ投稿
+          </Button>
+          <Button
+            colorClass="bg-green-400 mt-4"
+            type="button"
+            onClick={handleBlogList}
+          >
+            ブログ一覧
           </Button>
         </div>
       )}
