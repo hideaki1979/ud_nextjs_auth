@@ -19,7 +19,7 @@ export default function Home() {
     const { data } = await supabase.auth.getSession()
     console.log('セッション情報：', data)
     if (data.session) {
-      router.push('/create-post')
+      router.push('/posts/create-post')
     } else {
       router.push('/auth/login')
     }
